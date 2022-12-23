@@ -41,7 +41,7 @@ internal static class Program
             Console.WriteLine("Total states: " + state.GetTotalStates().Count);
             Console.WriteLine("Stored states: " + res.StatesCount);
             Console.WriteLine("Path: ");
-            Console.WriteLine(string.Join(", ",
+            Console.WriteLine(string.Join("=>",
                 solutionPath.Reverse().Select(part => part.Maze.Selected.Coordinate.ToString())));
         }
 

@@ -20,26 +20,11 @@ internal class State : IEquatable<State>
         Evaluation = Distance + Generation;
     }
 
-    public List<State> GetDepth()
-    {
-        var path = new List<State>();
-
-        foreach (var node in GetNeighbors())
-        {
-            var tmp = node.GetDepth();
-            if (tmp.Count > path.Count)
-                path = tmp;
-        }
-
-        path.Insert(0, this);
-        return path;
-    }
-
     public List<State> GetNeighbors()
     {
         if (_neighbors != null)
             return _neighbors;
-        _neighbors = new List<State>(3);
+        _neighbors = new List<State>();
         foreach (var direction in Enum.GetValues<Direction>())
         {
             if (TryMove(direction, out var currentChild) && currentChild!.Equals(Parent) == false)

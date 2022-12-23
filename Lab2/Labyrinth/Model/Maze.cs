@@ -145,7 +145,6 @@ internal class Maze : ICloneable
     public static Maze LoadFromFile(string path)
     {
         var deserialized = JsonConvert.DeserializeObject<CompressedCell[,]>(File.ReadAllText(path))!;
-
         int rows = deserialized.GetLength(0);
         int columns = deserialized.GetLength(1);
         var maze = new Maze(rows, columns);
@@ -208,8 +207,8 @@ internal class Maze : ICloneable
                     CellType.Source => "s",
                     CellType.Destination => "d",
                     CellType.Visited => "*",
-                    CellType.Selected => "$",
-                    CellType.Wall => "%",
+                    CellType.Selected => "@",
+                    CellType.Wall => "0",
                     _ => ""
                 };
                 sb.Append(value + " ");

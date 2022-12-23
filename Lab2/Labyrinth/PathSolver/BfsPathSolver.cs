@@ -8,8 +8,7 @@ internal class BfsPathSolver : IPathSolver
     
     public SearchResult Solve(State state, bool printSteps = false)
     {
-        int states = state.GetDepth().Count;
-        return Bfs(state, states, printSteps);
+        return Bfs(state, int.MaxValue, printSteps);
     }
 
     private SearchResult Bfs(State state, int depth, bool printSteps)
