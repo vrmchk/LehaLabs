@@ -81,6 +81,22 @@ internal class State : IEquatable<State>
             case Direction.Right:
                 horizontal++;
                 break;
+            case Direction.UpLeftDiagonal:
+                vertical--;
+                horizontal--;
+                break;
+            case Direction.UpRightDiagonal:
+                vertical--;
+                horizontal++;
+                break;
+            case Direction.DownLeftDiagonal:
+                vertical++;
+                horizontal--;
+                break;
+            case Direction.DownRightDiagonal:
+                vertical++;
+                horizontal++;
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(dir), dir, null);
         }
