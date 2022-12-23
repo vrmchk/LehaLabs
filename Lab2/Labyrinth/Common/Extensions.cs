@@ -26,7 +26,7 @@ internal static class Extensions
         var list = new List<T>();
         for (int rowIndex = 0; rowIndex < source.GetLength(0); rowIndex++)
         {
-            for (int columnIndex = 0; colunIndex < source.GetLength(1); columnIndex++)
+            for (int columnIndex = 0; columnIndex < source.GetLength(1); columnIndex++)
             {
                 list.Add(source[rowIndex, columnIndex]);
             }
