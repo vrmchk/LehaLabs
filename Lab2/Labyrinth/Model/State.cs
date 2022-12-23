@@ -4,36 +4,43 @@ namespace Labyrinth.Model;
 
 internal class State : IEquatable<State>
 {
-    private List<State> _neighbors = null!;
-
-    public Maze Maze { get; set; }
-    public State? Parent { get; set; }
-    public int Distance => (int)Math.Ceiling(Cell.DistanceBetween(Maze.Selected, Maze.Destination));
-    public int Generation { get; set; }
-    public int Evaluation { get; set; }
+    private List<State>? _children;
 
     public State(Maze maze, State? parent)
     {
         Maze = maze ?? throw new ArgumentNullException(nameof(maze));
         Parent = parent;
         Generation = 1 + parent?.Generation ?? 0;
-        Evaluation = Distance + Generation;
     }
 
-    public List<State> GetNeighbors()
-    {
-        if (_neighbors != null)
-            return _neighbors;
-        _neighbors = new List<State>();
-        foreach (var direction in Enum.GetValues<Direction>())
-        {
-            if (TryMove(direction, out var currentChild) && currentChild!.Equals(Parent) == false)
-            {
-                _neighbors.Add(currentChild);
-            }
-        }
+    public Maze Maze { get; set; }
 
-        return _neighbors;
+    public State? Parent { get; set; }
+
+    public int Distance => (int)Math.Ceiling(Cell.DistanceBetween(Maze.Selected, Maze.Destination));
+
+    public int Generation { get; set; }
+
+    public int Evaluation => Distance + Generation;
+
+    public List<State> Children
+    {
+        get
+        {
+            if (_children != null)
+                return _children;
+            
+            _children = new List<State>();
+            foreach (var direction in Enum.GetValues<Direction>())
+            {
+                if (TryMove(direction, out var currentChild) && currentChild!.Equals(Parent) == false)
+                {
+                    _children.Add(currentChild);
+                }
+            }
+
+            return _children;
+        }
     }
 
     public List<State> GetPath()

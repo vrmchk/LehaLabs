@@ -23,21 +23,18 @@ internal class AStarPathSolver : IPathSolver
             var current = open.MinBy(s => s.Evaluation)!;
             open.Remove(current);
             closed.Add(current);
-            
+
             _iteration++;
             if (printSteps)
                 current.PrintState();
-            
+
             if (current.Distance == 1)
                 return new SearchResult(current, _iteration, open.Count + closed.Count);
-            
-            foreach (var neighbor in current.GetNeighbors())
+
+            foreach (var child in current.Children)
             {
-                if (closed.Contains(neighbor))
-                    continue;
-                
-                if (!open.Contains(neighbor))
-                    open.Add(neighbor);
+                if (!closed.Contains(child) && !open.Contains(child))
+                    open.Add(child);
             }
         }
 

@@ -8,10 +8,10 @@ internal class BfsPathSolver : IPathSolver
     
     public SearchResult Solve(State state, bool printSteps = false)
     {
-        return Bfs(state, int.MaxValue, printSteps);
+        return Bfs(state, printSteps);
     }
 
-    private SearchResult Bfs(State state, int depth, bool printSteps)
+    private SearchResult Bfs(State state, bool printSteps)
     {
         var visited = new HashSet<State>();
         var queue = new Queue<State>();
@@ -24,9 +24,6 @@ internal class BfsPathSolver : IPathSolver
                 continue;
 
             visited.Add(current);
-            
-            if (current.Generation >= depth) 
-                return new SearchResult(null, int.MaxValue, int.MaxValue);
 
             _iteration++;
             if (printSteps)
@@ -35,10 +32,10 @@ internal class BfsPathSolver : IPathSolver
             if (current.Distance == 1)
                 return new SearchResult(current, _iteration, queue.Count + current.Generation);
 
-            foreach (var neighbor in current.GetNeighbors())
+            foreach (var child in current.Children)
             {
-                if (!visited.Contains(neighbor))
-                    queue.Enqueue(neighbor);
+                if (!visited.Contains(child))
+                    queue.Enqueue(child);
             }
         }
         

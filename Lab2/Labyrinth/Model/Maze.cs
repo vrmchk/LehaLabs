@@ -11,38 +11,6 @@ internal class Maze : ICloneable
     private (int x, int y) _sourceCoord;
     private (int x, int y) _destinationCoord;
 
-    public Cell[,] Cells { get; init; }
-
-    public Cell? this[int x, int y]
-    {
-        get => Enumerable.Range(0, Cells.GetLength(0)).Contains(x)
-               && Enumerable.Range(0, Cells.GetLength(1)).Contains(y)
-            ? Cells[x, y]
-            : null;
-
-        set => Cells[x, y] = value ?? throw new ArgumentNullException(nameof(value));
-    }
-
-    public Cell Selected
-    {
-        get => this[_selectedCoord.x, _selectedCoord.y] ??
-               throw new ArgumentOutOfRangeException(nameof(_selectedCoord));
-        set => this[_selectedCoord.x, _selectedCoord.y] = value;
-    }
-
-    public Cell Source
-    {
-        get => this[_sourceCoord.x, _sourceCoord.y] ?? throw new ArgumentOutOfRangeException(nameof(_sourceCoord));
-        set => this[_sourceCoord.x, _sourceCoord.y] = value;
-    }
-
-    public Cell Destination
-    {
-        get => this[_destinationCoord.x, _destinationCoord.y] ??
-               throw new ArgumentOutOfRangeException(nameof(_destinationCoord));
-        set => this[_destinationCoord.x, _destinationCoord.y] = value;
-    }
-
     public Maze(int height, int width)
     {
         Cells = new Cell[height, width];
@@ -84,6 +52,38 @@ internal class Maze : ICloneable
             if (cell.Type == CellType.Selected)
                 _selectedCoord = cell.Coordinate;
         }
+    }
+
+    public Cell[,] Cells { get; init; }
+
+    public Cell Selected
+    {
+        get => this[_selectedCoord.x, _selectedCoord.y] ??
+               throw new ArgumentOutOfRangeException(nameof(_selectedCoord));
+        set => this[_selectedCoord.x, _selectedCoord.y] = value;
+    }
+
+    public Cell Source
+    {
+        get => this[_sourceCoord.x, _sourceCoord.y] ?? throw new ArgumentOutOfRangeException(nameof(_sourceCoord));
+        set => this[_sourceCoord.x, _sourceCoord.y] = value;
+    }
+
+    public Cell Destination
+    {
+        get => this[_destinationCoord.x, _destinationCoord.y] ??
+               throw new ArgumentOutOfRangeException(nameof(_destinationCoord));
+        set => this[_destinationCoord.x, _destinationCoord.y] = value;
+    }
+
+    public Cell? this[int x, int y]
+    {
+        get => Enumerable.Range(0, Cells.GetLength(0)).Contains(x)
+               && Enumerable.Range(0, Cells.GetLength(1)).Contains(y)
+            ? Cells[x, y]
+            : null;
+
+        set => Cells[x, y] = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     public void MoveSelection(Direction direction)
@@ -170,7 +170,7 @@ internal class Maze : ICloneable
         return maze;
     }
 
-    public List<Cell?> Neighbors((int x, int y) coordinate)
+    public List<Cell?> Children((int x, int y) coordinate)
     {
         var top = this[coordinate.x + 1, coordinate.y];
         var right = this[coordinate.x, coordinate.y + 1];

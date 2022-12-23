@@ -39,8 +39,8 @@ internal static class Extensions
     {
         result ??= new List<State>();
         result.Add(state);
-        var neighbors = state.GetNeighbors();
-        foreach (var child in neighbors)
+        var children = state.Children;
+        foreach (var child in children)
         {
             child.GetTotalStates(result);
         }
@@ -54,6 +54,6 @@ internal static class Extensions
             cell.Coordinate.X != 0 && cell.Coordinate.Y != 0 &&
             cell.Coordinate.X != state.Maze.Cells.GetLength(0) - 1 &&
             cell.Coordinate.Y != state.Maze.Cells.GetLength(1) &&
-            state.Maze.Neighbors(cell.Coordinate).Count(n => n == null || n.Type == CellType.Wall) == 3);
+            state.Maze.Children(cell.Coordinate).Count(n => n == null || n.Type == CellType.Wall) == 3);
     }
 }
