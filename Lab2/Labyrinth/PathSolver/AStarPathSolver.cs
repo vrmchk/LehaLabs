@@ -33,7 +33,7 @@ internal class AStarPathSolver : IPathSolver
 
             foreach (var child in current.Children)
             {
-                if (!closed.Contains(child) && !open.Contains(child))
+                if (!closed.Contains(child))
                     open.Add(child);
             }
         }

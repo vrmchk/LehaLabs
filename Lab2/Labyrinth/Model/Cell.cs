@@ -4,7 +4,7 @@ namespace Labyrinth.Model;
 
 internal class Cell : ICloneable
 {
-    public Cell(CellType type, (int Y, int X) coordinate)
+    public Cell(CellType type, (int X, int Y) coordinate)
     {
         Type = type;
         Coordinate = coordinate;
@@ -16,12 +16,11 @@ internal class Cell : ICloneable
 
     public static double DistanceBetween(Cell source, Cell destination)
     {
-        double squareDistance = Math.Pow(destination.Coordinate.X - source.Coordinate.X, 2)
-                                + Math.Pow(destination.Coordinate.Y - source.Coordinate.Y, 2);
-
-        return Math.Sqrt(squareDistance);
+        double distance = Math.Abs(source.Coordinate.X - destination.Coordinate.X)
+                          + Math.Abs(source.Coordinate.Y - destination.Coordinate.Y);
+        return distance;
     }
-    
+
     public object Clone()
     {
         return new Cell(Type, Coordinate);

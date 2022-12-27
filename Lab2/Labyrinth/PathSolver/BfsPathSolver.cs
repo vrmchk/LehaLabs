@@ -14,12 +14,12 @@ internal class BfsPathSolver : IPathSolver
     private SearchResult Bfs(State state, bool printSteps)
     {
         var visited = new HashSet<State>();
-        var queue = new Queue<State>();
-        queue.Enqueue(state);
+        var queue = new HashSet<State>();
+        queue.Add(state);
         while (queue.Count != 0)
         {
-            var current = queue.Dequeue();
-            
+            var current = queue.First();
+            queue.Remove(current);
             if (visited.Contains(current))
                 continue;
 
@@ -34,8 +34,8 @@ internal class BfsPathSolver : IPathSolver
 
             foreach (var child in current.Children)
             {
-                if (!visited.Contains(child))
-                    queue.Enqueue(child);
+                if (!visited.Contains(child) )
+                    queue.Add(child);
             }
         }
         
