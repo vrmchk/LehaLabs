@@ -14,14 +14,18 @@ internal class Cell : ICloneable
 
     public CellType Type { get; set; }
 
+
+
+    //Manhattan geometry
     public static double DistanceBetween(Cell source, Cell destination)
     {
-        double distance = Math.Pow(source.Coordinate.X - destination.Coordinate.X, 2)
-                                + Math.Pow(source.Coordinate.Y - destination.Coordinate.Y, 2);
-                          
+        double distance = Math.Abs(source.Coordinate.X - destination.Coordinate.X)
+                          + Math.Abs(source.Coordinate.Y - destination.Coordinate.Y);
 
-        return Math.Sqrt(distance);
+        return distance;
     }
+
+
 
     public object Clone()
     {
