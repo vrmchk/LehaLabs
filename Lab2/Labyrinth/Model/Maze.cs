@@ -103,22 +103,7 @@ internal class Maze : ICloneable
             case Direction.Right:
                 horizontalOffset = 1;
                 break;
-            case Direction.UpLeftDiagonal:
-                verticalOffset = -1;
-                horizontalOffset = -1;
-                break;
-            case Direction.UpRightDiagonal:
-                verticalOffset = -1;
-                horizontalOffset = 1;
-                break;
-            case Direction.DownLeftDiagonal:
-                verticalOffset = 1;
-                horizontalOffset = -1;
-                break;
-            case Direction.DownRightDiagonal:
-                verticalOffset = 1;
-                horizontalOffset = 1;
-                break;
+            
         }
 
         (int x, int y) currCoord = (_selectedCoord.x + verticalOffset, _selectedCoord.y + horizontalOffset);

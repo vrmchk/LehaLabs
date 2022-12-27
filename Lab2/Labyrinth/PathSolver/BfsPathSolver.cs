@@ -34,7 +34,7 @@ internal class BfsPathSolver : IPathSolver
 
             foreach (var child in current.Children)
             {
-                if (!visited.Contains(child) )
+                if (!visited.Contains(child))
                     queue.Add(child);
             }
         }

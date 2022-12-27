@@ -6,8 +6,8 @@ internal enum Direction
     Down,
     Left,
     Right,
-    UpLeftDiagonal,
-    DownLeftDiagonal,
-    UpRightDiagonal,
-    DownRightDiagonal
+    //UpLeftDiagonal,
+    //DownLeftDiagonal,
+    //UpRightDiagonal,
+    //DownRightDiagonal
 }

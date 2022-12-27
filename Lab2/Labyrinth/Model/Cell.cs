@@ -16,9 +16,11 @@ internal class Cell : ICloneable
 
     public static double DistanceBetween(Cell source, Cell destination)
     {
-        double distance = Math.Abs(source.Coordinate.X - destination.Coordinate.X)
-                          + Math.Abs(source.Coordinate.Y - destination.Coordinate.Y);
-        return distance;
+        double distance = Math.Pow(source.Coordinate.X - destination.Coordinate.X, 2)
+                                + Math.Pow(source.Coordinate.Y - destination.Coordinate.Y, 2);
+                          
+
+        return Math.Sqrt(distance);
     }
 
     public object Clone()
